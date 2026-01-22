@@ -1,12 +1,12 @@
 export default class Thanks extends ui.view.DefaultTheme.ThanksUI {
     constructor() {
         super();
-        this.btnBack.on(Laya.Event.CLICK, this, ()=>$ui.switchView(UI.pages.MAIN));
+        this.btnBack.on(Laya.Event.CLICK, this, () => $ui.switchView(UI.pages.MAIN));
         this.listSupports.renderHandler = Laya.Handler.create(this, this.renderSupport, null, false);
         this.panelTopSupports.vScrollBar.elasticDistance = 150;
         this.listSupports.scrollBar.elasticDistance = 150;
-        this.btnAFD.on(Laya.Event.CLICK, this, goto, ['sponsor_afd']);
-        this.btnDDF.on(Laya.Event.CLICK, this, goto, ['sponsor_ddf']);
+        this.btnAFD.visible = false;
+        this.btnDDF.visible = false;
     }
 
     static #createComponent = Laya.plugin.extractComponents(Thanks.uiView, ['boxTopSupport']);
@@ -24,10 +24,10 @@ export default class Thanks extends ui.view.DefaultTheme.ThanksUI {
         const supports = [];
         this.#topSupports = [];
         core.specialThanks
-            .sort(()=>0.5-Math.random())
-            .forEach(({group, name, comment, color})=>
+            .sort(() => 0.5 - Math.random())
+            .forEach(({ group, name, comment, color }) =>
                 group == 2
-                    ? supports.push({name, color})
+                    ? supports.push({ name, color })
                     : this.renderTopSupport(name, comment, color)
             );
         this.listSupports.array = supports;
@@ -44,7 +44,7 @@ export default class Thanks extends ui.view.DefaultTheme.ThanksUI {
     }
 
     renderSupport(label) {
-        const {name, color} = label.dataSource;
+        const { name, color } = label.dataSource;
         label.text = name;
         label.color = color || $ui.common.defaultFontColor;
     }

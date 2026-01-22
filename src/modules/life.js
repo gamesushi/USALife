@@ -54,12 +54,12 @@ class Life {
         this.#specialThanks = specialThanks;
 
         const total = {
-            [this.PropertyTypes.TACHV]: this.#achievement.initial({achievements}),
-            [this.PropertyTypes.TEVT]: this.#event.initial({events}),
-            [this.PropertyTypes.TTLT]: this.#talent.initial({talents}),
+            [this.PropertyTypes.TACHV]: this.#achievement.initial({ achievements }),
+            [this.PropertyTypes.TEVT]: this.#event.initial({ events }),
+            [this.PropertyTypes.TTLT]: this.#talent.initial({ talents }),
         };
-        this.#property.initial({age, total});
-        this.#character.initial({characters});
+        this.#property.initial({ age, total });
+        this.#character.initial({ characters });
     }
 
     config({
@@ -99,7 +99,7 @@ class Life {
     }
 
     check(condition) {
-        return fCondition.checkCondition(this.#property,condition);
+        return fCondition.checkCondition(this.#property, condition);
     }
 
     clone(...args) {
@@ -114,9 +114,55 @@ class Life {
     }
 
     start(allocation) {
-        for(const key in allocation) {
+        for (const key in allocation) {
             this.#initialData[key] = util.clone(allocation[key]);
         }
+
+        // --- Neighborhood Tier Logic ---
+        let MNY = this.#initialData.MNY || 0;
+        let tier = 2; // Default to Tier 2 (Suburban)
+        const rand = Math.random();
+
+        // Tier distribution based on Initial Wealth (MNY)
+        // High MNY (>=8) -> High chance of Tier 1 (Coastal)
+        // Low MNY (<=3) -> High chance of Tier 3 (Rust Belt/Rural)
+        if (MNY >= 8) {
+            tier = rand < 0.8 ? 1 : 2;
+        } else if (MNY <= 3) {
+            tier = rand < 0.8 ? 3 : 2;
+        } else {
+            if (rand < 0.1) tier = 1;
+            else if (rand < 0.9) tier = 2;
+            else tier = 3;
+        }
+
+        this.#initialData.NHT = tier;
+        this.#initialData.INS = 0; // Default no insurance
+
+        // Apply Tier Modifiers
+        if (tier === 1) {
+            // Tier 1: Coastal Metropolises
+            // Extremely high MNW (bonus if not maxed), High INT (Education)
+            // Initial high wealth might start with insurance
+            if (MNY < 10) this.#initialData.MNY = Math.min(10, MNY + 2);
+            this.#initialData.INT = (this.#initialData.INT || 0) + 2;
+            if (this.#initialData.MNY >= 8) this.#initialData.INS = 2; // Premium Insurance for wealthy starts
+        } else if (tier === 2) {
+            // Tier 2: Suburban
+            if (MNY >= 5) this.#initialData.INS = 1; // Basic insurance for middle class
+        } else if (tier === 3) {
+            // Tier 3: Rust Belt & Rural South
+            // Low MNW, STR decay (initial penalty to start)
+            if (MNY > 0) this.#initialData.MNY = Math.max(0, MNY - 2);
+            this.#initialData.STR = Math.max(0, (this.#initialData.STR || 0) - 1);
+        }
+
+        // --- Food Desert & Poverty Trap Logic ---
+        // If born into extreme poverty (MNY <= 2), cap initial STR reduction to simulate malnutrition
+        if (this.#initialData.MNY <= 2) {
+            this.#initialData.STR = Math.max(0, (this.#initialData.STR || 0) - 2);
+        }
+
         this.#property.restart(this.#initialData);
         this.doTalent()
         this.#property.restartLastStep();
@@ -132,7 +178,37 @@ class Life {
     }
 
     next() {
-        const {age, event, talent} = this.#property.ageNext();
+        const { age, event, talent } = this.#property.ageNext();
+
+        // --- Wealth Dynamics (Capitalism Engine) ---
+        const currentMNY = this.#property.get(this.PropertyTypes.MNY);
+
+        // 1. Debt Spiral: If MNY < 0, interest accumulates
+        if (currentMNY < 0) {
+            if (Math.random() < 0.2) {
+                this.#property.change(this.PropertyTypes.MNY, -1);
+                this.#property.change(this.PropertyTypes.SPR, -1);
+            }
+        }
+
+        // 2. Compound Interest: If MNY > 20, wealth grows automatically
+        if (currentMNY > 20) {
+            if (Math.random() < 0.1) {
+                this.#property.change(this.PropertyTypes.MNY, 1);
+            }
+        }
+
+        // 3. Negative Talents Logic
+        const talents = this.#property.get(this.PropertyTypes.TLT);
+        // "Student Loan Anchor" (ID 1121): Deduct 10% of MNY or flat amount if MNY > 0
+        if (talents.includes(1121) || talents.includes("1121")) {
+            if (currentMNY > 0) {
+                // Simplified: Lose 1 MNY roughly every 2 turns to simulate high interest payments
+                if (Math.random() < 0.5) {
+                    this.#property.change(this.PropertyTypes.MNY, -1);
+                }
+            }
+        }
 
         const talentContent = this.doTalent(talent);
         const eventContent = this.doEvent(this.random(event));
@@ -147,7 +223,7 @@ class Life {
     talentReplace(talents) {
         const result = this.#talent.replace(talents);
         const contents = [];
-        for(const id in result) {
+        for (const id in result) {
             talents.push(result[id]);
             const source = this.#talent.get(id);
             const target = this.#talent.get(result[id]);
@@ -160,14 +236,14 @@ class Life {
     }
 
     doTalent(talents) {
-        if(talents) this.#property.change(this.PropertyTypes.TLT, talents);
+        if (talents) this.#property.change(this.PropertyTypes.TLT, talents);
         talents = this.#property.get(this.PropertyTypes.TLT)
             .filter(talentId => this.getTalentCurrentTriggerCount(talentId) < this.#talent.get(talentId).max_triggers);
 
         const contents = [];
-        for(const talentId of talents) {
+        for (const talentId of talents) {
             const result = this.#talent.do(talentId);
-            if(!result) continue;
+            if (!result) continue;
             this.#triggerTalents[talentId] = this.getTalentCurrentTriggerCount(talentId) + 1;
             const { effect, name, description, grade } = result;
             contents.push({
@@ -176,7 +252,7 @@ class Life {
                 grade,
                 description,
             })
-            if(!effect) continue;
+            if (!effect) continue;
             this.#property.effect(effect);
         }
         return contents;
@@ -184,6 +260,32 @@ class Life {
 
     doEvent(eventId) {
         const { effect, next, description, postEvent, grade } = this.#event.do(eventId);
+
+        // --- Social Mobility Logic ---
+        // If Tier 3 (NHT=3), reduce probability of MNY gain unless S-Tier Talent present.
+        if (effect && effect.MNY && effect.MNY > 0) {
+            const nht = this.#property.get(this.PropertyTypes.NHT);
+            if (nht === 3) {
+                const talents = this.#property.get(this.PropertyTypes.TLT);
+                let hasSTier = false;
+                // Check for S-Tier (Grade 3) talent
+                for (const tId of talents) {
+                    const tData = this.#talent.get(tId);
+                    if (tData && tData.grade >= 3) {
+                        hasSTier = true;
+                        break;
+                    }
+                }
+
+                if (!hasSTier) {
+                    // 50% chance to lose the economic opportunity
+                    if (Math.random() < 0.5) {
+                        delete effect.MNY;
+                    }
+                }
+            }
+        }
+
         this.#property.change(this.PropertyTypes.EVT, eventId);
         this.#property.effect(effect);
         const content = {
@@ -192,14 +294,14 @@ class Life {
             postEvent,
             grade,
         }
-        if(next) return [content, this.doEvent(next)].flat();
+        if (next) return [content, this.doEvent(next)].flat();
         return [content];
     }
 
     random(events) {
         return util.weightRandom(
             events.filter(
-                ([eventId])=>this.#event.check(eventId, this.#property)
+                ([eventId]) => this.#event.check(eventId, this.#property)
             )
         );
     }
@@ -216,11 +318,11 @@ class Life {
 
     characterRandom() {
         const characters = this.#character.random();
-        const replaceTalent = v=>v.talent=v.talent.map(
-            id=>this.#talent.get(id)
+        const replaceTalent = v => v.talent = v.talent.map(
+            id => this.#talent.get(id)
         );
         characters.normal.forEach(replaceTalent);
-        if(characters.unique && characters.unique.talent)
+        if (characters.unique && characters.unique.talent)
             replaceTalent(characters.unique);
         return characters;
     }
@@ -263,7 +365,7 @@ class Life {
     get statistics() {
         const pt = this.PropertyTypes;
 
-        return this.#getJudges( pt.TMS,
+        return this.#getJudges(pt.TMS,
             pt.CACHV, pt.RTLT, pt.REVT,
         );
     }
@@ -276,20 +378,20 @@ class Life {
             .#achievement
             .list(this.#property)
             .sort((
-                {id: a, grade: ag, hide: ah},
-                {id: b, grade: bg, hide: bh}
-            )=>{
+                { id: a, grade: ag, hide: ah },
+                { id: b, grade: bg, hide: bh }
+            ) => {
                 a = ticks[a];
                 b = ticks[b];
-                if(a&&b) return b - a;
-                if(!a&&!b) {
-                    if(ah&&bh) return bg - ag;
-                    if(ah) return 1;
-                    if(bh) return -1;
+                if (a && b) return b - a;
+                if (!a && !b) {
+                    if (ah && bh) return bg - ag;
+                    if (ah) return 1;
+                    if (bh) return -1;
                     return bg - ag;
                 }
-                if(!a) return 1;
-                if(!b) return -1;
+                if (!a) return 1;
+                if (!b) return -1;
             });
     }
 
