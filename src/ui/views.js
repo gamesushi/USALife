@@ -1188,6 +1188,31 @@ const light = {
     },
 }
 
-const themes = { default: dark, cyber, dark, light }
+const american = {
+    pages: {
+        [pages.LOADING]: 'loading',
+        [pages.MAIN]: 'american/main',
+        [pages.TALENT]: 'american/talent',
+        [pages.PROPERTY]: 'american/property',
+        [pages.TRAJECTORY]: 'american/trajectory',
+        [pages.SUMMARY]: 'american/summary',
+        [pages.ACHIEVEMENT]: 'american/achievement',
+        [pages.THANKS]: 'american/thanks',
+        [pages.THEMES]: 'themes',
+        [pages.SAVELOAD]: 'saveload',
+        [pages.MODE]: 'american/mode',
+        [pages.CELEBRITY]: 'american/celebrity',
+    },
+    popups: {
+        [popups.ACHIEVEMENT]: 'american/popup/achievementPopup',
+        [popups.MESSAGE]: 'message',
+    },
+    configs: {
+        bgColor: '#F5F5DC',
+        common: dark.configs.common,
+    },
+}
+
+const themes = { default: dark, cyber, dark, light, american }
 
 export default { themes, pages, popups }

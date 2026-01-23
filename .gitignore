@@ -110,4 +110,4 @@ utils/xlsxTransform-*
 __localStorage.json
 
 template/public
-public/data
+# public/data - Commented out to allow data files to be committed
