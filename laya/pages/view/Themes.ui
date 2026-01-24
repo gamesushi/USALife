@@ -3,7 +3,7 @@
     "type":"Dialog",
     "selectedBox":1,
     "selecteID":13,
-    "props":{"width":350,"sceneColor":"#000000","height":550},
+    "props":{"width":350,"sceneColor":"#000000","height":750},
     "nodeParent":-1,
     "label":"Dialog",
     "isOpen":true,
@@ -27,7 +27,7 @@
                 {
                     "x":30,
                     "type":"RadioGroup",
-                    "props":{"var":"radioTheme","name":"radioTheme","height":380,"centerY":0,"centerX":0},
+                    "props":{"var":"radioTheme","name":"radioTheme","height":"580","centerY":0,"centerX":0},
                     "nodeParent":6,
                     "label":"RadioGroup(radioTheme)",
                     "isOpen":true,
@@ -65,13 +65,39 @@
                         {
                             "x":45,
                             "type":"Radio",
-                            "props":{"width":300,"skin":"images/radio/radio_light.png","name":"item2","height":100,"bottom":0},
+                            "props":{"width":300,"skin":"images/radio/radio_light.png","name":"item2","height":100,"y":200},
                             "nodeParent":13,
                             "label":"Radio(item2)",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":12,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Radio",
+                            "props":{"width":300,"skin":"images/radio/radio_american.png","name":"item3","height":100,"y":310},
+                            "nodeParent":13,
+                            "label":"Radio(item3)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":16,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Radio",
+                            "props":{"width":300,"skin":"images/radio/radio_vintage.png","name":"item4","height":100,"y":420},
+                            "nodeParent":13,
+                            "label":"Radio(item4)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":17,
                             "child":[
                                 ]
                         }]

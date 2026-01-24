@@ -1213,6 +1213,508 @@ const american = {
     },
 }
 
-const themes = { default: dark, cyber, dark, light, american }
+const vintage = {
+    pages: {
+        [pages.LOADING]: 'loading',
+        [pages.MAIN]: 'vintage/main',
+        [pages.TALENT]: 'vintage/talent',
+        [pages.PROPERTY]: 'vintage/property',
+        [pages.TRAJECTORY]: 'vintage/trajectory',
+        [pages.SUMMARY]: 'vintage/summary',
+        [pages.ACHIEVEMENT]: 'vintage/achievement',
+        [pages.THANKS]: 'vintage/thanks',
+        [pages.THEMES]: 'themes',
+        [pages.SAVELOAD]: 'saveload',
+        [pages.MODE]: 'vintage/mode',
+        [pages.CELEBRITY]: 'vintage/celebrity',
+    },
+    popups: {
+        [popups.ACHIEVEMENT]: 'vintage/popup/achievementPopup',
+        [popups.MESSAGE]: 'message',
+    },
+    configs: {
+        bgColor: '#F4E8D0', // Warm cream/aged paper
+        common: {
+            defaultFontColor: '#3E2723', // Dark brown text
+            trajectoryItem: {
+                box: {
+                    defaultStroke: '#8B7355', // Muted brown border
+                    hoverStroke: '#8B4513', // Saddle brown
+                    lineWidth: 3,
+                },
+                grade: [
+                    {
+                        defaultColor: '#A0826D', // Tan/faded brown (common)
+                        hoverColor: '#8B7355',
+                    },
+                    {
+                        defaultColor: '#CD853F', // Burnt orange (rare)
+                        hoverColor: '#B8722C',
+                    },
+                    {
+                        defaultColor: '#B8860B', // Dark goldenrod (epic)
+                        hoverColor: '#9A7009',
+                    },
+                    {
+                        defaultColor: '#8B4513', // Saddle brown (legendary)
+                        hoverColor: '#6B3410',
+                    },
+                ],
+                ageColor: '#3E2723',
+                contentColor: '#3E2723',
+            },
+            topSupportItem: {
+                defaultColor: '#B8860B',
+                defaultStroke: '#8B7355',
+                hoverColor: '#DAA520',
+                hoverStroke: '#8B4513',
+            },
+            grade: ['#A0826D', '#CD853F', '#B8860B', '#8B4513'],
+            filter: ['#A0826Dff', '#CD853Fff', '#B8860Bff', '#8B4513ff'],
+            card: [
+                {
+                    normal: {
+                        defaultColor: '#A0826D',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#8B7355',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                    selected: {
+                        defaultColor: '#8B7355',
+                        defaultStroke: '#B8860B',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#8B7355',
+                        hoverStroke: '#DAA520',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                },
+                {
+                    normal: {
+                        defaultColor: '#CD853F',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#B8722C',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                    selected: {
+                        defaultColor: '#B8722C',
+                        defaultStroke: '#B8860B',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#B8722C',
+                        hoverStroke: '#DAA520',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                },
+                {
+                    normal: {
+                        defaultColor: '#B8860B',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#9A7009',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                    selected: {
+                        defaultColor: '#9A7009',
+                        defaultStroke: '#DAA520',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#9A7009',
+                        hoverStroke: '#FFD700',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                },
+                {
+                    normal: {
+                        defaultColor: '#8B4513',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#6B3410',
+                        hoverStroke: '#B8860B',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                    selected: {
+                        defaultColor: '#6B3410',
+                        defaultStroke: '#DAA520',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#6B3410',
+                        hoverStroke: '#FFD700',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                },
+            ],
+            summary: [
+                {
+                    defaultColor: '#A0826D',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#8B7355',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+                {
+                    defaultColor: '#CD853F',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#B8722C',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+                {
+                    defaultColor: '#B8860B',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#9A7009',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+                {
+                    defaultColor: '#8B4513',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#F4E8D0',
+                    hoverColor: '#6B3410',
+                    hoverStroke: '#B8860B',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+            ],
+            achievement: [
+                {
+                    defaultColor: '#A0826D',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#8B7355',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+                {
+                    defaultColor: '#CD853F',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#B8722C',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+                {
+                    defaultColor: '#B8860B',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#9A7009',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+                {
+                    defaultColor: '#8B4513',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#F4E8D0',
+                    hoverColor: '#6B3410',
+                    hoverStroke: '#B8860B',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                    radius: 4,
+                },
+            ],
+            characterItem: {
+                name: {
+                    defaultColor: '#CD853F',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#B8722C',
+                    hoverStroke: '#8B4513',
+                    hoverLabel: '#F4E8D0',
+                    lineWidth: 3,
+                },
+                state: {
+                    defaultColor: '#A0826D',
+                    defaultStroke: '#8B7355',
+                    defaultLabel: '#3E2723',
+                    hoverColor: '#A0826D',
+                    hoverStroke: '#8B7355',
+                    hoverLabel: '#3E2723',
+                    lineWidth: 3,
+                },
+                propertyColor: '#3E2723',
+            },
+        },
+        class: {
+            btn_main: {
+                defaultColor: '#B8860B',
+                defaultStroke: '#8B7355',
+                defaultLabel: '#3E2723',
+                hoverColor: '#DAA520',
+                hoverStroke: '#8B4513',
+                hoverLabel: '#F4E8D0',
+                lineWidth: 3,
+                radius: 6,
+            },
+            btn_main2: {
+                defaultColor: '#CD853F',
+                defaultStroke: '#8B7355',
+                defaultLabel: '#3E2723',
+                hoverColor: '#DAA520',
+                hoverStroke: '#8B4513',
+                hoverLabel: '#F4E8D0',
+                lineWidth: 3,
+                radius: 6,
+            },
+            btn_small: {
+                defaultColor: '#8B4513',
+                defaultStroke: '#8B7355',
+                defaultLabel: '#F4E8D0',
+                hoverColor: '#B8860B',
+                hoverStroke: '#DAA520',
+                hoverLabel: '#F4E8D0',
+                lineWidth: 3,
+                radius: 6,
+            },
+            title: {
+                color: '#8B4513',
+            },
+            font_default: {
+                color: '#3E2723',
+            },
+        },
+        pages: {
+            [pages.MAIN]: {
+                vars: {
+                    btnRemake: 'btn_main',
+                    btnThemes: {
+                        defaultColor: '#A0826D',
+                        radius: 100,
+                    },
+                    btnSaveLoad: {
+                        defaultColor: '#8B4513',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#B8860B',
+                        hoverStroke: '#DAA520',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 3,
+                        radius: 100,
+                    },
+                },
+                names: {
+                    title: 'title',
+                    btnSmall: 'btn_small',
+                },
+            },
+            [pages.TALENT]: {
+                vars: {
+                    btnDrawCard: 'btn_main',
+                    btnNext: 'btn_main',
+                    title: 'title',
+                },
+            },
+            [pages.PROPERTY]: {
+                vars: {
+                    btnRandomAllocate: 'btn_main',
+                    btnNext: 'btn_main2',
+                    title: 'title',
+                },
+                names: {
+                    font_default: 'font_default',
+                    property: {
+                        colorFilter: '#3E2723ff',
+                    },
+                },
+            },
+            [pages.TRAJECTORY]: {
+                vars: {
+                    btnSummary: 'btn_main',
+                    boxTrajectory: {
+                        defaultColor: '#E8D5B7',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#E8D5B7',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#3E2723',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                    boxSpeed: {
+                        colorFilter: '#3E2723ff',
+                    },
+                },
+                names: {
+                    propertyBox: {
+                        defaultColor: '#D4C4A8',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#D4C4A8',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#3E2723',
+                        lineWidth: 3,
+                        radius: 6,
+                    },
+                    propertyValue: {
+                        defaultColor: '#3E2723',
+                        defaultStroke: '#3E2723',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#3E2723',
+                        hoverStroke: '#3E2723',
+                        hoverLabel: '#F4E8D0',
+                        lineWidth: 0,
+                        radius: 4,
+                    },
+                },
+            },
+            [pages.SUMMARY]: {
+                vars: {
+                    btnAgain: 'btn_main',
+                    title: 'title',
+                },
+                names: {
+                    font_default: 'font_default',
+                },
+            },
+            [pages.ACHIEVEMENT]: {
+                vars: {
+                    btnBack: 'btn_small',
+                    btnRank: 'btn_small',
+                },
+                names: {
+                    font_default: 'font_default',
+                    title: 'title',
+                },
+            },
+            [pages.THANKS]: {
+                vars: {
+                    btnBack: 'btn_small',
+                    btnAFD: {
+                        defaultColor: '#B8860B',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#DAA520',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#F4E8D0',
+                        radius: 6,
+                    },
+                    btnDDF: {
+                        defaultColor: '#CD853F',
+                        defaultStroke: '#8B7355',
+                        defaultLabel: '#3E2723',
+                        hoverColor: '#B8722C',
+                        hoverStroke: '#8B4513',
+                        hoverLabel: '#F4E8D0',
+                        radius: 6,
+                    },
+                },
+            },
+            [pages.THEMES]: {
+                vars: {
+                    btnOK: {
+                        defaultColor: '#B8860B',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#DAA520',
+                        hoverLabel: '#F4E8D0',
+                        radius: 80,
+                    },
+                    btnClose: {
+                        defaultColor: '#8B4513',
+                        defaultLabel: '#F4E8D0',
+                        hoverColor: '#6B3410',
+                        hoverLabel: '#F4E8D0',
+                        radius: 80,
+                    },
+                },
+            },
+            [pages.SAVELOAD]: {
+                vars: {
+                    btnClose: {
+                        defaultColor: '#8B4513',
+                        hoverColor: '#6B3410',
+                    },
+                    btnSave: {
+                        defaultColor: '#6B8E23',
+                        hoverColor: '#8FBC8F',
+                    },
+                    btnRead: {
+                        defaultColor: '#6B8E23',
+                        hoverColor: '#8FBC8F',
+                    },
+                    btnLoad: {
+                        defaultColor: '#CD853F',
+                        hoverColor: '#DAA520',
+                    },
+                    btnWrite: {
+                        defaultColor: '#CD853F',
+                        hoverColor: '#DAA520',
+                    },
+                    btnBackup: {
+                        defaultColor: '#B8860B',
+                        hoverColor: '#DAA520',
+                        radius: 8,
+                        defaultLabel: '#F4E8D0',
+                        hoverLabel: '#F4E8D0',
+                    },
+                },
+                names: {
+                    btnSmall: {
+                        radius: 80,
+                        defaultLabel: '#F4E8D0',
+                        hoverLabel: '#F4E8D0',
+                    },
+                },
+            },
+            [pages.MODE]: {
+                names: {
+                    font_default: 'font_default',
+                    btn: 'btn_main',
+                },
+            },
+            [pages.CELEBRITY]: {
+                vars: {
+                    btnRetry: 'btn_main',
+                    btnNext: 'btn_main2',
+                },
+            },
+        },
+        popups: {
+            [popups.ACHIEVEMENT]: {
+                vars: {
+                    bg1: {
+                        defaultColor: '#F4E8D0',
+                        defaultStroke: '#B8860B',
+                        hoverColor: '#F4E8D0',
+                        hoverStroke: '#DAA520',
+                    },
+                },
+            },
+        },
+    },
+}
+
+const themes = { default: dark, cyber, dark, light, american, vintage }
 
 export default { themes, pages, popups }
